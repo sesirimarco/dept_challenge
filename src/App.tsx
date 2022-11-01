@@ -2,7 +2,6 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import callApi from './services/callApi';
 import LaunchCard from './components/LaunchCard';
-import { saveItem, deleteItem, getItem } from './utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
 /**
  * 
@@ -14,8 +13,6 @@ launches with the rockets array)
   5. Inspect a specific launch detail
   6. Pagination
 
-  launches < rockets
-  saltear merge
  */
 
 const mergeLaunches = (launches: any, rockets: any) => {

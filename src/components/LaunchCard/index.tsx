@@ -1,12 +1,9 @@
-import React from 'react';
-import { getItem, saveItem, deleteItem } from '../utils';
+import React, { useState } from 'react';
+import { getItem, saveItem, deleteItem } from '../../utils';
 import Card from 'react-bootstrap/Card';
 
 const saveFavorite = (status: boolean, id: string) => {
-  console.log(status, id);
-
   if (status) {
-    //localStorage.setItem(id, String(status));
     saveItem(id, status);
   } else {
     deleteItem(id);
@@ -16,6 +13,9 @@ type Props = {
   launch: any;
 };
 const LaunchCard: React.FC<Props> = ({ launch }) => {
+  const [value, setValue] = useState<boolean>(
+    Boolean(getItem(launch.flight_number))
+  );
   return (
     <>
       <Card style={{ width: '18rem' }}>
@@ -26,10 +26,11 @@ const LaunchCard: React.FC<Props> = ({ launch }) => {
           <p>{launch.launch_date_local}</p>
           <input
             type='checkbox'
-            checked={getItem(launch.flight_number) ? true : false}
-            onChange={(event: any) =>
-              saveFavorite(event.currentTarget.checked, launch.flight_number)
-            }
+            checked={value}
+            onChange={(event: any) => {
+              setValue(event.currentTarget.checked);
+              saveFavorite(event.currentTarget.checked, launch.flight_number);
+            }}
           ></input>
         </Card.Body>
       </Card>
